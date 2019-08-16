@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table mb-0"
+             *ngIf="products && products.length">
+        <thead>
+          <tr>
+            <th>Unit Dollar</th>
+            <th>Current Month</th>
+            <th>Next Month</th>
+            <th>Stock</th>
+            <th>Tactic Id</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+
+            <td>
+              <a [routerLink]="['/products', product.id]">
+                {{ product.unitDollar }}
+              </a>
+            </td>
+            <td>{{ product.currentMonth }}</td>
+            <td>{{ product.nextMonth }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+              {{ product.tacticId }}
+            </td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm"
+                      [routerLink]="['/products', product.id, 'edit']">
+                Edit
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="errorMessage"
+     class="alert alert-danger">
+  Error: {{ errorMessage }}
+</div>

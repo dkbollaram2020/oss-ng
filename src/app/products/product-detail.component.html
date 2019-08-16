@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="card-header"
+       *ngIf="product">
+    {{pageTitle + ": " + product.unitDollar}}
+  </div>
+
+  <div class="card-body"
+       *ngIf="product">
+
+    <div class="row">
+
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-3">Unit Dollar:</div>
+          <div class="col-md-6">{{product.unitDollar}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Current Month</div>
+          <div class="col-md-6">{{product.currentMonth}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">Next Month:</div>
+          <div class="col-md-6">{{product.nextMonth}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Stock:</div>
+          <div class="col-md-6">{{product.stock}}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">Tactic Id</div>
+          <div class="col-md-6">
+              {{product.tacticId}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <button class="btn btn-outline-secondary mr-3"
+                style="width:80px"
+                (click)="onBack()">
+          <i class="fa fa-chevron-left"></i> Back
+        </button>
+        <button class="btn btn-outline-primary"
+                style="width:80px"
+                [routerLink]="['/products', product.id, 'edit']">
+          Edit
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="alert alert-danger"
+       *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>

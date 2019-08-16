@@ -1,0 +1,111 @@
+<mat-form-field>
+    <input matInput
+           (keyup)="applyFilter($event.target.value)"
+           placeholder="Filter">
+</mat-form-field>
+
+<!-- Async data fetching -->
+<!-- *ngIf="dataSource" -->
+<div class="mat-elevation-z8">
+    <table mat-table
+           [dataSource]="dataSource"
+           #activeTacticstable
+           matSort>
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+            <th mat-header-cell
+                *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()"
+                              [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell
+                *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)"
+                              [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+
+
+
+        <ng-container matColumnDef="unitDollar">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Unit Dollar </th>
+            <td mat-cell
+                *matCellDef="let row"> {{row.unitDollar}} </td>
+        </ng-container>
+
+        <!-- Current Month Column -->
+        <ng-container matColumnDef="currentMonth">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Current Month </th>
+            <td mat-cell
+                *matCellDef="let row"> {{row.currentMonth}} </td>
+        </ng-container>
+
+        <!-- Next Month Column -->
+        <ng-container matColumnDef="nextMonth">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Next Month </th>
+            <td mat-cell
+                *matCellDef="let row"> {{row.nextMonth}} </td>
+        </ng-container>
+
+        <!-- Stock Column -->
+        <ng-container matColumnDef="stock">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Stock </th>
+            <td mat-cell
+                *matCellDef="let row"> {{row.stock}} </td>
+        </ng-container>
+
+        <!-- Tactic Id Column -->
+        <ng-container matColumnDef="tacticId">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Product Id </th>
+            <td mat-cell
+                *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Actions </th>
+            <td mat-cell
+                *matCellDef="let row">
+                <a (click)="openDialog('Update',row)"><i class='fa fa-edit'></i></a>
+                <a (click)="onOKClicked(row)"><i class="fa fa-check-square"></i></a>
+                <a (click)="openDialog('Reject',row)"><i class="fa fa-window-close"></i></a>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row
+            *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row
+            *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<!-- capturing the state of the selected elements in the data table -->
+<!-- {{selection.selected | json}} -->
+
+
+<!-- Copyright 2019 Google Inc. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->
